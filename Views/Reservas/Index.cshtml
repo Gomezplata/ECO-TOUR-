@@ -1,0 +1,63 @@
+@model List<Reserva>
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <h2 class="mb-0">
+        Reservas
+        @if (ViewBag.Filtro != null)
+        {
+            <small class="text-muted">de @ViewBag.Filtro</small>
+        }
+    </h2>
+    <div class="d-flex gap-2">
+        @if (ViewBag.Filtro != null)
+        {
+            <a class="btn btn-outline-secondary" asp-action="Index">Ver todas</a>
+        }
+        <a class="btn btn-success" asp-action="Crear">+ Nueva reserva</a>
+    </div>
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">Todavía no hay reservas.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle bg-white">
+            <thead class="table-success">
+                <tr>
+                    <th>#</th>
+                    <th>Turista</th>
+                    <th>Correo</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Personas</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.Id</td>
+                        <td>@r.NombreTurista</td>
+                        <td>@r.Correo</td>
+                        <td>@r.Destino.Nombre</td>
+                        <td>@r.Fecha?.ToString("dd/MM/yyyy")</td>
+                        <td>@r.Personas</td>
+                        <td>@Moneda.Pesos(r.Total)</td>
+                        <td class="text-nowrap">
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Editar" asp-route-id="@r.Id">Editar</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Eliminar" asp-route-id="@r.Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

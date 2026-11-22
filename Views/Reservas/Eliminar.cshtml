@@ -1,0 +1,25 @@
+@model Reserva
+@{
+    ViewData["Title"] = "Eliminar reserva";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <h2 class="mb-3">¿Eliminar esta reserva?</h2>
+
+        <table class="table bg-white">
+            <tr><th>Turista</th><td>@Model.NombreTurista</td></tr>
+            <tr><th>Correo</th><td>@Model.Correo</td></tr>
+            <tr><th>Destino</th><td>@Model.Destino.Nombre</td></tr>
+            <tr><th>Fecha</th><td>@Model.Fecha?.ToString("dd/MM/yyyy")</td></tr>
+            <tr><th>Personas</th><td>@Model.Personas</td></tr>
+            <tr><th>Total</th><td>@Moneda.Pesos(Model.Total)</td></tr>
+        </table>
+
+        <form asp-action="Eliminar" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@model List<Destino>
+@{
+    ViewData["Title"] = "Destinos";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+    <div>
+        <h1 class="text-success mb-0">Destinos ecológicos</h1>
+        <p class="text-muted mb-0">Información guardada en SQL Server</p>
+    </div>
+    <a class="btn btn-outline-success" asp-action="Crear">+ Nuevo destino</a>
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">No hay destinos registrados.</div>
+}
+
+<div class="row g-3">
+    @foreach (var d in Model)
+    {
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@d.Nombre</h5>
+                    <p class="card-text">@d.Descripcion</p>
+                    <p class="fw-bold mb-1">@Moneda.Pesos(d.PrecioPorPersona) por persona</p>
+                    <p class="text-muted small">@d.Reservas.Count reserva(s)</p>
+
+                    <div class="mt-auto d-flex flex-wrap gap-2">
+                        <a class="btn btn-success btn-sm" asp-controller="Reservas" asp-action="Crear" asp-route-destinoId="@d.Id">Reservar</a>
+                        <a class="btn btn-outline-secondary btn-sm" asp-controller="Reservas" asp-action="Index" asp-route-destinoId="@d.Id">Ver reservas</a>
+                        <a class="btn btn-outline-primary btn-sm" asp-action="Editar" asp-route-id="@d.Id">Editar</a>
+                        <a class="btn btn-outline-danger btn-sm" asp-action="Eliminar" asp-route-id="@d.Id">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
