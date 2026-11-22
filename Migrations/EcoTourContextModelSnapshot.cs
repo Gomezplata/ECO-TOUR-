@@ -98,6 +98,10 @@ namespace EcoTour.Migrations
                     b.Property<int>("Personas")
                         .HasColumnType("int");
 
+                    b.Property<string>("Telefono")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<int>("Total")
                         .HasColumnType("int");
 

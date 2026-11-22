@@ -19,6 +19,10 @@ public class Reserva
     [Display(Name = "Correo electrónico")]
     public string Correo { get; set; }
 
+    [StringLength(20)]
+    [Display(Name = "Teléfono")]
+    public string Telefono { get; set; }
+
     [Range(1, 10, ErrorMessage = "El número de personas debe estar entre 1 y 10")]
     [Display(Name = "Número de personas")]
     public int Personas { get; set; }
